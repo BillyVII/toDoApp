@@ -25,7 +25,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun StartScreen (startScreenViewModel: StartScreenViewModel = viewModel(), modifier: Modifier = Modifier) {
 
-    val startScreenViewModel by startScreenViewModel.uiState.collectAsState()
+    val startUiState by startScreenViewModel.uiState.collectAsState()
 
     var text by remember { mutableStateOf("")}
     Column (modifier = modifier
@@ -36,7 +36,7 @@ fun StartScreen (startScreenViewModel: StartScreenViewModel = viewModel(), modif
         Text(text = "toto")
         EditTextField()
         Button(
-            onClick = { startScreenViewModel.entree }) {
+            onClick = { startScreenViewModel.AddEntree() }) {
             Text(text = "toto")
 
         }
