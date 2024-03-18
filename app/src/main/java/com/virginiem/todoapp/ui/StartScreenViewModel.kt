@@ -9,4 +9,16 @@ import kotlinx.coroutines.flow.asStateFlow
 class StartScreenViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(Entree())
     val uiState: StateFlow<Entree> = _uiState.asStateFlow()
+
+    val entreesList = mutableListOf<String>()
+    fun AddEntree(){
+        // val entreesList = mutableListOf<String>()
+        entreesList.add("toto")
+        entreesList.add("titi")
+        entreesList.add("tata")
+
+        for (entree in entreesList) {
+            println(entree)
+        }
+    }
 }

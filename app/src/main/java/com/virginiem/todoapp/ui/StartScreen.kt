@@ -9,6 +9,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,10 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 @Composable
-fun StartScreen (modifier : Modifier = Modifier ) {
+fun StartScreen (startScreenViewModel: StartScreenViewModel = viewModel(), modifier: Modifier = Modifier) {
+
+    val startScreenViewModel by startScreenViewModel.uiState.collectAsState()
+
     var text by remember { mutableStateOf("")}
     Column (modifier = modifier
         .fillMaxSize()
@@ -31,7 +36,7 @@ fun StartScreen (modifier : Modifier = Modifier ) {
         Text(text = "toto")
         EditTextField()
         Button(
-            onClick = { AddEntree() }) {
+            onClick = { startScreenViewModel.entree }) {
             Text(text = "toto")
 
         }
@@ -52,16 +57,16 @@ fun EditTextField(){
 
 }
 
-fun AddEntree(){
-    val entreesList = mutableListOf<String>()
-    entreesList.add("toto")
-    entreesList.add("titi")
-    entreesList.add("tata")
-
-    for (entree in entreesList) {
-        println(entree)
-    }
-}
+//fun AddEntree(){
+//    val entreesList = mutableListOf<String>()
+//    entreesList.add("toto")
+//    entreesList.add("titi")
+//   entreesList.add("tata")
+//
+//    for (entree in entreesList) {
+//        println(entree)
+//    }
+//}
 
 @Preview
 @Composable
