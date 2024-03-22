@@ -16,6 +16,12 @@ class StartScreenViewModel : ViewModel() {
 
     private val entreesList = mutableListOf<String>()
     private var word by mutableStateOf("")
+
+    fun addWord(wordAdd:String){
+        word = wordAdd
+        entreesList.add(word)
+    }
+
     fun addEntree(wordAdd: String){
         // val entreesList = mutableListOf<String>()
         entreesList.add("toto")
@@ -23,12 +29,16 @@ class StartScreenViewModel : ViewModel() {
         entreesList.add("tata")
         entreesList.add(wordAdd)
 
-        for (entree in entreesList) {
+        displayList(entreesList)
+
+       /* for (entree in entreesList) {
             println(entree)
-        }
+        }*/
     }
 
-    fun updateWord (newWord:String){
-        word = newWord
+    fun displayList(list: List <String>){
+        for(item in list){
+            println(item)
+        }
     }
 }

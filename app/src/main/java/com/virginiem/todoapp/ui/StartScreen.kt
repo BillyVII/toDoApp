@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -29,6 +31,7 @@ fun StartScreen (startScreenViewModel: StartScreenViewModel = viewModel(), modif
 
     val startUiState by startScreenViewModel.uiState.collectAsState()
 
+    // WordListLayout()
     Column (modifier = modifier
         .fillMaxSize()
         .padding(36.dp),
@@ -39,6 +42,15 @@ fun StartScreen (startScreenViewModel: StartScreenViewModel = viewModel(), modif
 
     }
 
+}
+
+@Composable
+fun WordListLayout(list: List<String>){
+    LazyColumn(){
+        items(list){
+            Text(text = it)
+        }
+    }
 }
 @Composable
 fun EditTextField(viewModel: StartScreenViewModel){
@@ -62,7 +74,7 @@ fun EditTextField(viewModel: StartScreenViewModel){
 
 @Composable
 fun ButtonClicked(word:String, viewModel: StartScreenViewModel){
-    Button(onClick = { viewModel.addEntree(word) }) {
+    Button(onClick = { viewModel.addWord(word) }) {
 
     }
 }
