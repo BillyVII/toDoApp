@@ -9,21 +9,22 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.virginiem.todoapp.ui.model.Entree
 
 
 @Composable
@@ -31,35 +32,48 @@ fun StartScreen (startScreenViewModel: StartScreenViewModel = viewModel(), modif
 
     val startUiState by startScreenViewModel.uiState.collectAsState()
 
+    val list = startScreenViewModel.entreesList
+
     // WordListLayout()
     Column (modifier = modifier
         .fillMaxSize()
         .padding(36.dp),
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.End) {
-        Text(text = "toto")
-        EditTextField(viewModel = startScreenViewModel)
+        WordListLayout(list = list)
+        EditTextField(value = startScreenViewModel.word,
+            valueChange = {startScreenViewModel.addWord(it)})
+        Button(onClick = { startScreenViewModel.addEntree() }) {
+
+        }
+
 
     }
 
 }
 
 @Composable
-fun WordListLayout(list: List<String>){
+fun WordListLayout(list: List<Entree>){
     LazyColumn(){
         items(list){
-            Text(text = it)
+            WordItem(word = it)
         }
     }
 }
+
 @Composable
-fun EditTextField(viewModel: StartScreenViewModel){
-    var text by remember { mutableStateOf("")}
+fun WordItem(word: Entree){
+    Card{
+        Text(text = word.entree, fontWeight = FontWeight.Bold, fontSize = 32.sp)
+    }
+}
+@Composable
+fun EditTextField(value:String,
+                  valueChange: (String)-> Unit){
+
     OutlinedTextField(
-        value = text,
-        onValueChange = {
-            text = it
-        },
+        value = value,
+        onValueChange = valueChange,
         label = { Text(text = "label")},
         keyboardOptions = KeyboardOptions.Default.copy(
             imeAction = ImeAction.Done,
@@ -67,19 +81,10 @@ fun EditTextField(viewModel: StartScreenViewModel){
         ),
         keyboardActions = KeyboardActions()
     )
-
-    ButtonClicked(word = text, viewModel = viewModel )
-
 }
 
-@Composable
-fun ButtonClicked(word:String, viewModel: StartScreenViewModel){
-    Button(onClick = { viewModel.addWord(word) }) {
 
-    }
-}
-
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun StartScreenPreview(){
     StartScreen()
