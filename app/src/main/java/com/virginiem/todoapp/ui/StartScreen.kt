@@ -54,7 +54,7 @@ fun StartScreen (startScreenViewModel: StartScreenViewModel = viewModel(), modif
 
 @Composable
 fun WordListLayout(list: List<Entree>){
-    LazyColumn(){
+    LazyColumn{
         items(list){
             WordItem(word = it)
         }
